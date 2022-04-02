@@ -38,23 +38,12 @@ app.use(cors())
 app.use(xss())
 app.use(mongoSanitize())
 
-app.use(morgan('tiny'))
 app.use(express.json())//the purpose of this middleware is to gain access to body on req 
 app.use(cookieParser(process.env.JWT_SECRET))// signed cookie
 app.use(express.static('./public'))
 app.use(fileUpload())
 
 
-
-app.get('/', (req, res) => {
-    res.send('e-commerce api')
-})
-
-app.get('/api/v1', (req, res) => {
-    //    console.log(req.cookies)//does not work with signed cookies
-    console.log(req.signedCookies)
-    res.send('e-commerce api')
-})
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/users', userRouter)
